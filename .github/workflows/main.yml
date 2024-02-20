@@ -19,22 +19,21 @@ on:
         description: 'staging the unpacked solution folder before check-in *do not change*'
         required: true
         default: out/solutions/
-      solution_target_folder:
+      solution_target_folder: 
        description: 'folder name to be created and checked in *do not change*'
        required: true
        default: solutions/
-
 env:
 #edit your values here
-  ENVIRONMENT_URL: 'https://org04d6b9f9.crm8.dynamics.com/'
-  USERNAME: 'vgk@trytek.onmicrosoft.com'
-
+  ENVIRONMENT_URL: 'https://org9f0233b4.crm8.dynamics.com/'
+  CLIENT_ID: '5a2b7848-f4b5-40c7-a635-640076092bb8'
+  TENANT_ID: 'e930316f-a5d9-4a19-a3c8-9f4272f63ead'
 permissions:
   contents: write
-
 jobs:
   export-from-dev:
     runs-on: windows-latest
+    # or you can say runs-on: ubuntu-latest
     env:
       RUNNER_DEBUG: 1
 
@@ -47,18 +46,20 @@ jobs:
       uses: microsoft/powerplatform-actions/who-am-i@v0
       with:
         environment-url: ${{env.ENVIRONMENT_URL}}
-        user-name: ${{env.USERNAME}}
-        password-secret: ${{ secrets.password }}
+        app-id: ${{env.CLIENT_ID}}
+        client-secret: ${{ secrets.PowerPlatformSPN }}
+        tenant-id: ${{env.TENANT_ID}}
+
 
     - name: export-solution action
       uses: microsoft/powerplatform-actions/export-solution@v0
       with:
         environment-url: ${{env.ENVIRONMENT_URL}}
-        user-name: ${{env.USERNAME}}
-        password-secret: ${{ secrets.password }}
+        app-id: ${{env.CLIENT_ID}}
+        client-secret: ${{ secrets.PowerPlatformSPN }}
+        tenant-id: ${{env.TENANT_ID}}
         solution-name: ${{ github.event.inputs.solution_name }}
         solution-output-file: ${{ github.event.inputs.solution_exported_folder}}/${{ github.event.inputs.solution_name }}.zip
-
 
     - name: unpack-solution action
       uses: microsoft/powerplatform-actions/unpack-solution@v0
