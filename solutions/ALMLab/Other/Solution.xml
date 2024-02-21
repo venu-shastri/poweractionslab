@@ -80,7 +80,13 @@
     <RootComponents>
       <RootComponent type="1" schemaName="user9_timeoffrequest" behavior="0" />
       <RootComponent type="62" schemaName="user9_TimeOffRequest" behavior="0" />
+      <RootComponent type="80" schemaName="user9_TimeOffRequest" behavior="0" />
     </RootComponents>
-    <MissingDependencies />
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)" />
+        <Dependent type="80" schemaName="user9_TimeOffRequest" displayName="Time Off Requests" />
+      </MissingDependency>
+    </MissingDependencies>
   </SolutionManifest>
 </ImportExportXml>
